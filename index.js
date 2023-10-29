@@ -1,18 +1,3 @@
-// var result = {
-// 	list: [{
-// 			title: "test",
-// 			url: 'https://www.bilibili.com',
-// 			coverUrl: 'https://hi77-overseas.mangafuna.xyz/xueyuanlidesharenyouxi/cover/1666424211.jpg.328x422.jpg'
-// 		},
-// 		{
-// 			title: "test",
-// 			url: 'https://www.bilibili.com',
-// 			coverUrl: 'https://hi77-overseas.mangafuna.xyz/linghedebanxiaojie/cover/1651574529.jpg.328x422.jpg'
-// 		}
-// 	]
-// }
-
-
 async function getMangaListByRecommend(page, pageSize) {
 	const url =
 		'https://api.mangacopy.com/api/v3/recs';
