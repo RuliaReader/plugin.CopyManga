@@ -5,7 +5,7 @@
 ## 说明
 
  - 能用就行.
- - 要在Http标头里添加参数才能正常使用喔，“Header”填写“Platform”喔，“Value”里填写“1”喔.
+ - 要在`Http标头`里添加参数才能正常使用喔，`Header`填写`Platform`喔，`Value`里填写`1`喔.
 
 ## 登录
 
