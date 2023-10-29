@@ -1,0 +1,9 @@
+{
+  "name": "@rulia/CopyManga",
+  "title": "拷贝漫画",
+  "description": "拷贝漫画插件.",
+  "version": "0.0.1",
+  "author": "LittleStar_OuO",
+  "tags": ["Copy", "Manga","CopyManga"],
+  "homepage": "https://github.com/LancerComet/RuliaReader/tree/master/plugins/bilibili-manga"
+}
