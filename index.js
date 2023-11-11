@@ -131,3 +131,4 @@ async function getChapterImageList(chapterUrl) {
 async function getImageUrl(path) {
 	window.Rulia.endWithResult(path);
 }
+//
