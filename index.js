@@ -88,7 +88,7 @@ async function getMangaData(dataPageUrl) {
 
 		for (var manga of chapterListResponse.results.list) {
 			var comic = {
-				title: manga.name,
+				title: '[' + manga.name + '][' + manga.datetime_created + ']',
 				url: 'https://www.mangacopy.com/comic/' + seasonIdMatch[1] + '/chapter/' + manga.uuid
 			}
 			result.chapterList.push(comic);
@@ -111,15 +111,21 @@ async function getChapterImageList(chapterUrl) {
 	});
 	const response = JSON.parse(rawResponse);
 	var result = [];
-	for (manga of response.results.chapter.contents) {
+	for (var i = 0; i < response.results.chapter.words.length; i++) {
 		result.push({
-			url: manga.url,
+			url: response.results.chapter.contents[i].url,
+			index: response.results.chapter.words[i],
 			width: 1,
 			height: 1
 		});
 	}
+	result.sort(function(a, b) {
+		return a.index - b.index;
+	});
+	for (var i = 0; i < result.length; i++) {
+		delete result[i].index;
+	}
 	window.Rulia.endWithResult(result);
-
 }
 
 async function getImageUrl(path) {
