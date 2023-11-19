@@ -1,9 +1,9 @@
 {
-  "name": "@rulia/CopyManga",
-  "title": "拷贝漫画",
-  "description": "拷贝漫画插件.",
-  "version": "0.0.2",
-  "author": "LittleStar_OuO",
-  "tags": ["Copy", "Manga","CopyManga"],
-  "homepage": "https://github.com/LittleStar-OuO/plugin.CopyManga"
+	"name": "@rulia/CopyManga",
+	"title": "拷贝漫画",
+	"description": "拷贝漫画插件.",
+	"version": "0.0.3",
+	"author": "LittleStar_OuO",
+	"tags": ["Copy", "Manga", "CopyManga"],
+	"homepage": "https://github.com/LittleStar-OuO/plugin.CopyManga"
 }
