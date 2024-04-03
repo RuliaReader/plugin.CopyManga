@@ -1,3 +1,7 @@
+let headers = {
+	Platform: 1
+}
+
 async function setMangaListFilterOptions() {
 	const url = 'https://api.mangacopy.com/api/v3/h5/filter/comic/tags';
 	try {
@@ -24,7 +28,8 @@ async function setMangaListFilterOptions() {
 		const rawResponse = await window.Rulia.httpRequest({
 			url: url,
 			method: 'GET',
-			payload: 'format=json&type=1'
+			payload: 'format=json&type=1',
+			headers: headers
 		});
 		const response = JSON.parse(rawResponse);
 		for (var item of response.results.theme) {
@@ -53,7 +58,9 @@ async function getMangaListByRecommend(page, pageSize) {
 		const rawResponse = await window.Rulia.httpRequest({
 			url: url,
 			method: 'GET',
-			payload: 'format=json&limit=' + pageSize + '&offset=' + ((page - 1) * pageSize) + '&pos=3200102'
+			payload: 'format=json&limit=' + pageSize + '&offset=' + ((page - 1) * pageSize) +
+				'&pos=3200102',
+			headers: headers
 		});
 		const response = JSON.parse(rawResponse);
 		var result = {
@@ -92,7 +99,8 @@ async function getMangaListByCategory(page, pageSize, filterOptions) {
 			const rawResponse = await window.Rulia.httpRequest({
 				url: url,
 				method: 'GET',
-				payload: payload
+				payload: payload,
+				headers: headers
 			})
 			const response = JSON.parse(rawResponse);
 			var result = {
@@ -121,7 +129,8 @@ async function getMangaListBySearching(page, pageSize, keyword) {
 			url: url,
 			method: 'GET',
 			payload: '_update=true&format=json&limit=' + pageSize + '&offset=' + ((page - 1) * pageSize) +
-				'&platform=1&q=' + keyword + '&q_type='
+				'&platform=1&q=' + keyword + '&q_type=',
+			headers: headers
 		});
 		const response = JSON.parse(rawResponse);
 		var result = {
@@ -158,10 +167,11 @@ async function getMangaData(dataPageUrl) {
 		const detailRawResponse = await window.Rulia.httpRequest({
 			url: detailUrl,
 			method: 'GET',
-			payload: 'format=json&platform=3'
+			payload: 'format=json&platform=3',
+			headers: headers
 		})
 		const detailResponse = JSON.parse(detailRawResponse);
-		var result = {
+		let result = {
 			title: detailResponse.results.comic.name,
 			description: detailResponse.results.comic.brief,
 			coverUrl: detailResponse.results.comic.cover,
@@ -170,7 +180,8 @@ async function getMangaData(dataPageUrl) {
 		const chapterListRawResponse = await window.Rulia.httpRequest({
 			url: chapterListUrl,
 			method: 'GET',
-			payload: '_update=true&format=json&limit=500&offset=0'
+			payload: '_update=true&format=json&limit=500&offset=0',
+			headers: headers
 		});
 		const chapterListResponse = JSON.parse(chapterListRawResponse);
 
