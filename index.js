@@ -1,5 +1,7 @@
 let headers = {
-	Platform: 1
+	'Platform': 1,
+	'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6,ja;q=0.5',
+	'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0'
 }
 
 async function setMangaListFilterOptions() {
@@ -206,13 +208,14 @@ async function getChapterImageList(chapterUrl) {
 	const rawResponse = await window.Rulia.httpRequest({
 		url: url,
 		method: 'GET',
-		payload: 'format=json'
+		payload: 'format=json',
+		headers: headers
 	});
 	const response = JSON.parse(rawResponse);
 	var result = [];
 	for (var i = 0; i < response.results.chapter.words.length; i++) {
 		result.push({
-			url: response.results.chapter.contents[i].url,
+			url: response.results.chapter.contents[i].url.replace(/c800x/, 'c1500x'),
 			index: response.results.chapter.words[i],
 			width: 1,
 			height: 1
