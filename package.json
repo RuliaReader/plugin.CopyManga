@@ -2,8 +2,14 @@
 	"name": "@rulia/CopyManga",
 	"title": "拷贝漫画",
 	"description": "拷贝漫画插件.",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"author": "LittleStar_OuO",
 	"tags": ["Copy", "Manga", "CopyManga"],
-	"homepage": "https://github.com/LittleStar-OuO/plugin.CopyManga"
+	"homepage": "https://github.com/LittleStar-OuO/plugin.CopyManga",
+	"userConfig": {
+		"authorization": {
+			"displayName": "authorization",
+			"description": "请使用“网页开发者工具”从网页的header中提取authorization，例如：Token a5822c5xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx54f"
+		}
+	}
 }
