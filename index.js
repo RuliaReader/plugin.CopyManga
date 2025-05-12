@@ -13,7 +13,7 @@ if (userConfig.authorization) {
 }
 
 async function setMangaListFilterOptions() {
-	const url = 'https://api.mangacopy.com/api/v3/h5/filter/comic/tags';
+	const url = 'https://www.copy20.com/api/v3/h5/filter/comic/tags';
 	try {
 		let result = [{
 				label: '主题',
@@ -68,7 +68,7 @@ async function setMangaListFilterOptions() {
 
 async function getMangaListByRecommend(page, pageSize) {
 	const url =
-		'https://api.mangacopy.com/api/v3/recs';
+		'https://www.copy20.com/api/v3/recs';
 	try {
 		const rawResponse = await window.Rulia.httpRequest({
 			url: url,
@@ -133,7 +133,7 @@ async function getMangaListByCategory(page, pageSize, filterOptions) {
 	} else if (filterOptions.theme == 'bookshelf') {
 		return await getMangaListByBookshelf(page, pageSize);
 	} else {
-		const url = 'https://api.mangacopy.com/api/v3/comics';
+		const url = 'https://www.copy20.com/api/v3/comics';
 		try {
 			let theme = '';
 			let top = '';
@@ -172,7 +172,7 @@ async function getMangaListByCategory(page, pageSize, filterOptions) {
 
 async function getMangaListBySearching(page, pageSize, keyword) {
 	const url =
-		'https://api.mangacopy.com/api/v3/search/comic';
+		'https://www.copy20.com/api/v3/search/comic';
 	try {
 		const rawResponse = await window.Rulia.httpRequest({
 			url: url,
@@ -210,8 +210,8 @@ async function getMangaList(page, pageSize, keyword, rawFilterOptions) {
 async function getMangaData(dataPageUrl) {
 	const seasonIdMatchExp = /\/comic\/(.*)/;
 	const seasonIdMatch = dataPageUrl.match(seasonIdMatchExp);
-	const detailUrl = 'https://api.mangacopy.com/api/v3/comic2/' + seasonIdMatch[1];
-	const chapterListUrl = 'https://api.mangacopy.com/api/v3/comic/' + seasonIdMatch[1] + '/group/default/chapters';
+	const detailUrl = 'https://www.copy20.com/api/v3/comic2/' + seasonIdMatch[1];
+	const chapterListUrl = 'https://www.copy20.com/api/v3/comic/' + seasonIdMatch[1] + '/group/default/chapters';
 	try {
 		const detailRawResponse = await window.Rulia.httpRequest({
 			url: detailUrl,
@@ -250,7 +250,7 @@ async function getMangaData(dataPageUrl) {
 async function getChapterImageList(chapterUrl) {
 	const episodeIdMatchExp = /https?:\/\/www\.mangacopy\.com\/comic\/([a-zA-Z0-9_-]+)\/chapter\/([0-9a-f-]+)/;
 	const episodeIdMatch = chapterUrl.match(episodeIdMatchExp);
-	const url = 'https://api.mangacopy.com/api/v3/comic/' + episodeIdMatch[1] + '/chapter2/' + episodeIdMatch[2];
+	const url = 'https://www.copy20.com/api/v3/comic/' + episodeIdMatch[1] + '/chapter2/' + episodeIdMatch[2];
 	const rawResponse = await window.Rulia.httpRequest({
 		url: url,
 		method: 'GET',
