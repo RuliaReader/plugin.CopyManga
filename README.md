@@ -1,6 +1,6 @@
 # CopyManga Plugin
 
-用于阅读[拷贝漫画](https://www.mangacopy.com)的 Rulia 插件.
+用于阅读[拷贝漫画](https://www.copy200.com)的 Rulia 插件.
 
 ## 说明
 

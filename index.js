@@ -1,5 +1,4 @@
 let headers = {
-	'Platform': 1,
 	'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6,ja;q=0.5',
 	'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0'
 }
@@ -13,7 +12,7 @@ if (userConfig.authorization) {
 }
 
 async function setMangaListFilterOptions() {
-	const url = 'https://www.copy20.com/api/v3/h5/filter/comic/tags';
+	const url = 'https://api.copy2000.online/api/v3/h5/filter/comic/tags';
 	try {
 		let result = [{
 				label: '主题',
@@ -68,7 +67,7 @@ async function setMangaListFilterOptions() {
 
 async function getMangaListByRecommend(page, pageSize) {
 	const url =
-		'https://www.copy20.com/api/v3/recs';
+		'https://api.copy2000.online/api/v3/recs';
 	try {
 		const rawResponse = await window.Rulia.httpRequest({
 			url: url,
@@ -97,7 +96,7 @@ async function getMangaListByRecommend(page, pageSize) {
 
 async function getMangaListByBookshelf(page, pageSize) {
 	const url =
-		'https://mangacopy.com/api/v3/member/collect/comics';
+		'https://api.copy2000.online/api/v3/member/collect/comics';
 	try {
 		const rawResponse = await window.Rulia.httpRequest({
 			url: url,
@@ -106,7 +105,9 @@ async function getMangaListByBookshelf(page, pageSize) {
 				'&free_type=1&ordering=-datetime_modifier',
 			headers: {
 				'authorization': authorization,
-				'Platform': 2
+				'Platform': 2,
+				'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6,ja;q=0.5',
+				'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0'
 			}
 		});
 		const response = JSON.parse(rawResponse);
@@ -133,7 +134,7 @@ async function getMangaListByCategory(page, pageSize, filterOptions) {
 	} else if (filterOptions.theme == 'bookshelf') {
 		return await getMangaListByBookshelf(page, pageSize);
 	} else {
-		const url = 'https://www.copy20.com/api/v3/comics';
+		const url = 'https://api.copy2000.online/api/v3/comics';
 		try {
 			let theme = '';
 			let top = '';
@@ -172,13 +173,13 @@ async function getMangaListByCategory(page, pageSize, filterOptions) {
 
 async function getMangaListBySearching(page, pageSize, keyword) {
 	const url =
-		'https://www.copy20.com/api/v3/search/comic';
+		'https://api.copy2000.online/api/kb/web/searchbd/comics';
 	try {
 		const rawResponse = await window.Rulia.httpRequest({
 			url: url,
 			method: 'GET',
-			payload: '_update=true&format=json&limit=' + pageSize + '&offset=' + ((page - 1) * pageSize) +
-				'&platform=1&q=' + keyword + '&q_type=',
+			payload: 'limit=' + pageSize + '&offset=' + ((page - 1) * pageSize) +
+				'&platform=2&q=' + keyword + '&q_type=',
 			headers: headers
 		});
 		const response = JSON.parse(rawResponse);
@@ -210,8 +211,9 @@ async function getMangaList(page, pageSize, keyword, rawFilterOptions) {
 async function getMangaData(dataPageUrl) {
 	const seasonIdMatchExp = /\/comic\/(.*)/;
 	const seasonIdMatch = dataPageUrl.match(seasonIdMatchExp);
-	const detailUrl = 'https://www.copy20.com/api/v3/comic2/' + seasonIdMatch[1];
-	const chapterListUrl = 'https://www.copy20.com/api/v3/comic/' + seasonIdMatch[1] + '/group/default/chapters';
+	const detailUrl = 'https://api.copy2000.online/api/v3/comic2/' + seasonIdMatch[1];
+	const chapterListUrl = 'https://api.copy2000.online/api/v3/comic/' + seasonIdMatch[1] +
+		'/group/default/chapters';
 	try {
 		const detailRawResponse = await window.Rulia.httpRequest({
 			url: detailUrl,
@@ -250,7 +252,7 @@ async function getMangaData(dataPageUrl) {
 async function getChapterImageList(chapterUrl) {
 	const episodeIdMatchExp = /https?:\/\/www\.mangacopy\.com\/comic\/([a-zA-Z0-9_-]+)\/chapter\/([0-9a-f-]+)/;
 	const episodeIdMatch = chapterUrl.match(episodeIdMatchExp);
-	const url = 'https://www.copy20.com/api/v3/comic/' + episodeIdMatch[1] + '/chapter2/' + episodeIdMatch[2];
+	const url = 'https://api.copy2000.online/api/v3/comic/' + episodeIdMatch[1] + '/chapter2/' + episodeIdMatch[2];
 	const rawResponse = await window.Rulia.httpRequest({
 		url: url,
 		method: 'GET',
