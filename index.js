@@ -173,14 +173,16 @@ async function getMangaListByCategory(page, pageSize, filterOptions) {
 
 async function getMangaListBySearching(page, pageSize, keyword) {
 	const url =
-		'https://api.copy2000.online/api/kb/web/searchbd/comics';
+		'https://api.copy2000.online/api/kb/web/searchc/comics';
 	try {
 		const rawResponse = await window.Rulia.httpRequest({
 			url: url,
 			method: 'GET',
 			payload: 'limit=' + pageSize + '&offset=' + ((page - 1) * pageSize) +
 				'&platform=2&q=' + keyword + '&q_type=',
-			headers: headers
+			headers: {
+				'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 Edg/137.0.0.0'
+			}
 		});
 		const response = JSON.parse(rawResponse);
 		let result = {
