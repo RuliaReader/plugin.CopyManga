@@ -173,7 +173,7 @@ async function getMangaListByCategory(page, pageSize, filterOptions) {
 
 async function getMangaListBySearching(page, pageSize, keyword) {
 	const url =
-		'https://api.copy2000.online/api/kb/web/searchc/comics';
+		'https://api.copy2000.online/api/kb/web/searcha/comics';
 	try {
 		const rawResponse = await window.Rulia.httpRequest({
 			url: url,
