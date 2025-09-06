@@ -96,18 +96,15 @@ async function getMangaListByRecommend(page, pageSize) {
 
 async function getMangaListByBookshelf(page, pageSize) {
 	const url =
-		'https://api.copy2000.online/api/v3/member/collect/comics';
+		'https://api.2025copy.com/api/v3/member/collect/comics';
 	try {
 		const rawResponse = await window.Rulia.httpRequest({
 			url: url,
 			method: 'GET',
-			payload: 'limit=' + pageSize + '&offset=' + ((page - 1) * pageSize) +
-				'&free_type=1&ordering=-datetime_modifier',
+			payload: 'free_type=1&limit=' + pageSize + '&offset=' + ((page - 1) * pageSize) +
+				'&_update=true&ordering=-datetime_modifier',
 			headers: {
-				'authorization': authorization,
-				'Platform': 2,
-				'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6,ja;q=0.5',
-				'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0'
+				'authorization': authorization
 			}
 		});
 		const response = JSON.parse(rawResponse);
@@ -134,7 +131,7 @@ async function getMangaListByCategory(page, pageSize, filterOptions) {
 	} else if (filterOptions.theme == 'bookshelf') {
 		return await getMangaListByBookshelf(page, pageSize);
 	} else {
-		const url = 'https://api.copy2000.online/api/v3/comics';
+		const url = 'https://api.2025copy.com/api/v3/comics';
 		try {
 			let theme = '';
 			let top = '';
@@ -144,13 +141,17 @@ async function getMangaListByCategory(page, pageSize, filterOptions) {
 			if (filterOptions.top && filterOptions.top != 0) {
 				top = '&top=' + filterOptions.top;
 			}
-			let payload = '_update=true&format=json&free_type=1&limit=' + pageSize + '&offset=' + ((page - 1) *
-				pageSize) + '&ordering=popular' + theme + top;
+			let payload = 'free_type=1&limit=' + pageSize + '&offset=' + ((page - 1) * pageSize) +
+				'&ordering=-datetime_updated&_update=true' + theme + top;
 			const rawResponse = await window.Rulia.httpRequest({
 				url: url,
 				method: 'GET',
 				payload: payload,
-				headers: headers
+				headers: {
+					'accept': 'application/json',
+					'platform': 1,
+					'version': '2025.08.08'
+				}
 			})
 			const response = JSON.parse(rawResponse);
 			let result = {
@@ -173,15 +174,17 @@ async function getMangaListByCategory(page, pageSize, filterOptions) {
 
 async function getMangaListBySearching(page, pageSize, keyword) {
 	const url =
-		'https://api.copy2000.online/api/kb/web/searcha/comics';
+		'https://api.2025copy.com/api/v3/search/comic';
 	try {
 		const rawResponse = await window.Rulia.httpRequest({
 			url: url,
 			method: 'GET',
 			payload: 'limit=' + pageSize + '&offset=' + ((page - 1) * pageSize) +
-				'&platform=2&q=' + keyword + '&q_type=',
+				'&platform=1&q=' + keyword + '&q_type=&_update=true',
 			headers: {
-				'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 Edg/137.0.0.0'
+				'accept': 'application/json',
+				'platform': 1,
+				'version': '2025.08.08'
 			}
 		});
 		const response = JSON.parse(rawResponse);
@@ -213,15 +216,14 @@ async function getMangaList(page, pageSize, keyword, rawFilterOptions) {
 async function getMangaData(dataPageUrl) {
 	const seasonIdMatchExp = /\/comic\/(.*)/;
 	const seasonIdMatch = dataPageUrl.match(seasonIdMatchExp);
-	const detailUrl = 'https://api.copy2000.online/api/v3/comic2/' + seasonIdMatch[1];
-	const chapterListUrl = 'https://api.copy2000.online/api/v3/comic/' + seasonIdMatch[1] +
+	const detailUrl = 'https://api.2025copy.com/api/v3/comic2/' + seasonIdMatch[1];
+	const chapterListUrl = 'https://api.2025copy.com/api/v3/comic/' + seasonIdMatch[1] +
 		'/group/default/chapters';
 	try {
 		const detailRawResponse = await window.Rulia.httpRequest({
 			url: detailUrl,
 			method: 'GET',
-			payload: 'format=json&platform=3',
-			headers: headers
+			payload: 'platform=1&_update=true'
 		})
 		const detailResponse = JSON.parse(detailRawResponse);
 		let result = {
@@ -233,8 +235,7 @@ async function getMangaData(dataPageUrl) {
 		const chapterListRawResponse = await window.Rulia.httpRequest({
 			url: chapterListUrl,
 			method: 'GET',
-			payload: '_update=true&format=json&limit=500&offset=0',
-			headers: headers
+			payload: '_update=true&limit=500&offset=0'
 		});
 		const chapterListResponse = JSON.parse(chapterListRawResponse);
 
