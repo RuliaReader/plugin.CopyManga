@@ -206,11 +206,17 @@ async function getMangaListBySearching(page, pageSize, keyword) {
 }
 
 async function getMangaList(page, pageSize, keyword, rawFilterOptions) {
-	if (keyword) {
-		return await getMangaListBySearching(page, pageSize, keyword);
+	if (authorization) {
+		if (keyword) {
+			return await getMangaListBySearching(page, pageSize, keyword);
+		} else {
+			return await getMangaListByCategory(page, pageSize, JSON.parse(rawFilterOptions));
+		}
 	} else {
-		return await getMangaListByCategory(page, pageSize, JSON.parse(rawFilterOptions));
+		window.Rulia.endWithException('请在插件设置中配置Authorization');
 	}
+
+
 }
 
 async function getMangaData(dataPageUrl) {
@@ -223,7 +229,10 @@ async function getMangaData(dataPageUrl) {
 		const detailRawResponse = await window.Rulia.httpRequest({
 			url: detailUrl,
 			method: 'GET',
-			payload: 'platform=1&_update=true'
+			payload: 'platform=1&_update=true',
+			headers: {
+				'authorization': authorization
+			}
 		})
 		const detailResponse = JSON.parse(detailRawResponse);
 		let result = {
@@ -235,7 +244,10 @@ async function getMangaData(dataPageUrl) {
 		const chapterListRawResponse = await window.Rulia.httpRequest({
 			url: chapterListUrl,
 			method: 'GET',
-			payload: '_update=true&limit=500&offset=0'
+			payload: '_update=true&limit=500&offset=0',
+			headers: {
+				'authorization': authorization
+			}
 		});
 		const chapterListResponse = JSON.parse(chapterListRawResponse);
 
